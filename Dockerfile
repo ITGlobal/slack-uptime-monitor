@@ -1,10 +1,15 @@
 # -----------------------------------------------------------------------------
-# Build backend
+# Build image
 # -----------------------------------------------------------------------------
 FROM golang:alpine AS backend
 
 RUN apk update && \
     apk add --no-cache git gcc musl-dev
+
+WORKDIR /go/src/github.com/itglobal/slack-uptime-monitor-cache
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
 
 WORKDIR /go/src/github.com/itglobal/slack-uptime-monitor
 
@@ -13,7 +18,7 @@ RUN go get
 RUN go build -o /out/slack-uptime-monitor
 
 # -----------------------------------------------------------------------------
-# Build runtime image
+# Runtime image
 # -----------------------------------------------------------------------------
 FROM alpine:latest
 RUN apk update && apk add --no-cache curl

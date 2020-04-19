@@ -1,0 +1,12 @@
+version: "2.4"
+services:
+    slack_uptime_monitor:
+        image: slack_uptime_monitor:latest
+        container_name: slack_uptime_monitor
+        build:
+            context: .
+        env_file: .env
+        ports:
+            - 5000:5000
+        volumes:
+            - ./var:/app/var
