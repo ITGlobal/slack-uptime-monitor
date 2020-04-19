@@ -1,0 +1,6 @@
+slack-uptime-monitor
+slack-uptime-monitor.exe*
+www/**
+var/**
+!**/.gitkeep
+.env
